@@ -71,10 +71,23 @@ public class Degree {
 			 */
 			System.out.print("(LabelInfo ->)");
 			System.out.print(category.get(i).getLabel());
-			System.out.print("(NumberInfo ->)");
-			System.out.print(category.get(i).getNumber());
-			System.out.print("(SubjectInfo ->)");
-			System.out.print(category.get(i).getSubject());
+			//System.out.print("(NumberInfo ->)");
+			//System.out.print(category.get(i).getNumber());
+			//System.out.print("(SubjectInfo ->)");
+			//System.out.print(category.get(i).getSubject());
+			System.out.print("(FulfilledStatus ->)");
+			/**
+			 *prints yes if fulfilled, no if not 
+			 */
+			if(category.get(i).isFulfilled())
+			{
+				System.out.print("Yes");
+			}
+			else
+			{
+				System.out.print("no");
+			}
+			
 			
 			/**
 			 * checking each prerequisite for the course if they exist
