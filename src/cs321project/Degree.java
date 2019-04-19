@@ -133,12 +133,16 @@ public class Degree {
 					e.printStackTrace();
 				}
 				
-				d.testCategory(d.getComputerScienceDepartment());
-				d.testCategory(d.getAdditionalSeniorCS());
-				d.testCategory(d.getCSRelatedCourses());
-				d.testCategory(d.getMajorInComputerScience());
-				d.testCategory(d.getSeniorCSOneElective());
-				d.testCategory(d.getUniversityCore());
+				//d.testCategory(d.getComputerScienceDepartment());
+				//d.testCategory(d.getAdditionalSeniorCS());
+				//d.testCategory(d.getCSRelatedCourses());
+				//d.testCategory(d.getMajorInComputerScience());
+				//d.testCategory(d.getSeniorCSOneElective());
+				//d.testCategory(d.getUniversityCore());
 				
+				d.getMajorInComputerScience().get(0).setFulfilled(true);
+				d.getMajorInComputerScience().get(1).setFulfilled(true);
+				d.getMajorInComputerScience().get(2).setFulfilled(true);
+				d.testCategory(d.getMajorInComputerScience());
 	}
 }
