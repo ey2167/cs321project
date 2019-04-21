@@ -5,6 +5,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -25,7 +27,8 @@ public class GUI extends JFrame {
 	
 	private ScheduleController sc;
 	
-	public GUI () {
+	public GUI() {
+		
 		//makes GUI style itself like its host OS.
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -45,15 +48,10 @@ public class GUI extends JFrame {
 		
 		this.setTitle("Degree Planner");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setSize(new Dimension(800,600));
+        this.setSize(new Dimension(1000,600));
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 	}
-	
-	//must be called after initialized
-    public void display() {
-        this.setVisible(true);
-    }
     
     private void createMenuBar() {
     	menuBar = new JMenuBar();
@@ -98,25 +96,33 @@ public class GUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//dummy action
-				setSize(900,700);
+				sc.saveSchedule();
 			}
 			
 		});
 		fileMenu.add(menuItem);
 		
-		
 		this.setJMenuBar(menuBar);
     }
     
-    public void updateDegree(ArrayList<Requirement> requirements) {
-    	for (Requirement r : requirements) {
-    		
-    	}
+    //must be called before used
+    public void setScheduleController(ScheduleController sc) {
+    	this.sc = sc;
+    	reqView.setScheduleController(sc);
+    	schedView.setScheduleController(sc);
     }
     
-    public static void main(String[] args) {
-		GUI gui = new GUI();
-		gui.display();
-	}
+	//must be called after initialized
+    public void display() {
+        this.setVisible(true);
+    }
+    
+    public void updateDegree(HashMap<String, ArrayList<Requirement>> requirements) {
+    	reqView.populate(requirements);
+    }
+    
+    public void updateSchedule(ArrayList<Semester> semesters) {
+    	System.out.println(semesters.size());
+    	schedView.populate(semesters);
+    }
 }

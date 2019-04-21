@@ -1,5 +1,7 @@
 package cs321project;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ScheduleController {
@@ -7,32 +9,41 @@ public class ScheduleController {
 	private FileHandler fileHandler;
 	private Degree degree;
 	private Schedule schedule;
+	private GUI gui;
 	
-	protected ScheduleController()
+	protected ScheduleController(GUI gui, FileHandler fileHandler)
 	{
-		//TODO FileHandler constructor
-		//TODO Degree constructor
+		//Degree constructor handled in loadfile() method
+		this.gui = gui;
+		this.fileHandler = fileHandler;
+		//fileHandler = new FileHandler(inputFilePath,outputFilePath);
 		schedule = new Schedule();
 	}
-	protected void loadFile() {
-		//TODO loadFile
+	//Spencer's constructor,
+	/*
+	 * protected ScheduleController() { //TODO FileHandler constructor //TODO Degree
+	 * constructor schedule = new Schedule(); }
+	 */
+	protected void loadFile() throws IOException {
+		degree = fileHandler.getDegree();
+		gui.updateDegree(degree.getAllRequirements());
 	}
 	
 	protected void saveSchedule() {
-		//TODO saveFile
+		fileHandler.saveSchedule();
 	}
 	
 	protected ArrayList<Semester> generateSchedule() {
 		ArrayList<Semester> ret = null;
 		schedule.genSchedule(degree);
 		ret = schedule.getScheudle();
+		gui.updateSchedule(schedule.getScheudle());
 		return ret;
 	}
 	
 	protected void fufillRequirement(Requirement r) {
-		//TODO fulfill requirement
+		r.setFulfilled(true);
 	}
-	
 	/*
 	 * Moves classes between semesters
 	 * returns:
@@ -52,9 +63,9 @@ public class ScheduleController {
 	protected int moveCourse(int courseIndex, int semesterStart, int semesterDest) {
 		int ret=-1;
 		ret = schedule.moveClass(semesterStart, semesterDest, courseIndex);
+		gui.updateSchedule(schedule.getScheudle());
 		return ret;
 	}
-	
 	/*
 	 * Swaps 2 courses between semesters
 	 * returns:
@@ -74,6 +85,7 @@ public class ScheduleController {
 	protected int swapCourse(int c1, int s1, int c2, int s2) {
 		int ret = -1;
 		schedule.swapClass(c1,s1,c2,s2);
+		gui.updateSchedule(schedule.getScheudle());
 		return ret;
 	}
 }
